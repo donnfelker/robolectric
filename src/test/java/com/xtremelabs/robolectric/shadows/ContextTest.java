@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import com.xtremelabs.robolectric.WithTestDefaultsRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -36,5 +36,10 @@ public class ContextTest {
     @Test
     public void getFilesDir_shouldCreateDirectory() throws Exception {
         assertTrue(context.getFilesDir().exists());
+    }
+
+    @Test
+    public void getResources_shouldGetTheSameResourcesEachTime() {
+        assertThat(context.getResources(), is( context.getResources() ));
     }
 }

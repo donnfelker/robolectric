@@ -22,6 +22,8 @@ import static com.xtremelabs.robolectric.Robolectric.shadowOf;
 abstract public class ShadowContext {
     @RealObject private Context realContext;
 
+    private Resources resources;
+
     @Implementation
     public String getString(int resId) {
         return realContext.getResources().getString(resId);
@@ -84,6 +86,14 @@ abstract public class ShadowContext {
     @Implementation
     public File getFileStreamPath(String name) {
         return new File(getFilesDir(), name);
+    }
+
+    @Implementation
+    public Resources getResources() {
+        if(resources == null)
+            resources = realContext.getResources();
+
+        return  resources;
     }
 
     /**
